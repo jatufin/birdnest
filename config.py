@@ -9,5 +9,6 @@ RADIUS = 200  # Radius in metres from the bird's nest
 PERSIST_TIME = 600  # Time in seconds. Older detections are filtered out
 
 POLL_INTERVAL = 5  # Seconds between requesting drone info from the server
+PAGE_REFRESH = 2  # Seconds between browser automatic page reload
 
 TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
