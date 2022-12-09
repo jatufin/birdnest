@@ -1,5 +1,6 @@
 import math
 from datetime import datetime
+import copy
 
 import requests
 import xml.etree.ElementTree as ET
@@ -151,7 +152,6 @@ class Drones:
         for serial_number, drone in self.drones.items():
             age = now - drone["timestamp"]
             if age.total_seconds() > self.persist_time:
-                print(f"DELETE: age={age.total_seconds()} serial={serial_number}")
                 to_be_deleted.append(serial_number)
 
         for serial_number in to_be_deleted:
@@ -166,7 +166,11 @@ class Drones:
         pilot information
         """
         result = []
-        for serial_number, drone in self.drones.items():
+        
+        # The dictionary can be updated during iteration, so a copy is used        
+        drones = copy.copy(self.drones)
+        
+        for serial_number, drone in drones.items():
             pilot = self.get_pilot(serial_number)
             result.append({"distance": drone["distance"],
                            "firstName": pilot["firstName"],
@@ -204,8 +208,6 @@ class Drones:
         distance = math.sqrt((drone_x - self.nest_x)**2 +
                              (drone_y - self.nest_y)**2)
 
-        print(f"DISTANCE: {distance} RADIUS: {self.radius}")
-        
         if distance < self.radius:
             return distance
 
