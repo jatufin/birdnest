@@ -15,6 +15,12 @@ The user interface is not important and the page should only show the list of th
 
 * The application is implemented in Python, using the Flask framework.
 * The application will be published on [Fly.io](fly.io) platform.
+* There will be a scheduled method, which polls the drone detector in given
+  intervals regardless if the front end has been used or not
+
+### Persistent data storage
+
+The application doesn't use any persistent storage. All information is lost during the application shut down.
 
 ## Downloading and starting
 
@@ -31,6 +37,9 @@ Go to the project folder and build the Flask environment:
 $ python3 -m venv venv
 $ . venv/bin/activate
 (venv) $ pip install Flask
+(venv) $ pip install wheel
+(venv) $ pip install Flask-APScheduler
+(venv) $ pip install requests
 ```
 
 Start the application:
@@ -40,3 +49,9 @@ $ flask run
 ```
 
 The front end of the application can be opened in your browser: [localhost:5000](http://localhost:5000/)
+
+## Configuration
+
+Python variables containing configuration information can be found in the `config.py` file.
+
+No environmental variables are used.
