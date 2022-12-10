@@ -1,4 +1,3 @@
-import math
 from datetime import datetime
 import copy
 
@@ -10,27 +9,21 @@ class Drones:
     """
     def __init__(self,
                  service,
-                 nest_x,
-                 nest_y,
-                 radius=100,
+                 nest,
                  persist_time=600):
         """
         Drone class constructor
 
         Arguments:
-        nest_x: float   The x coordinate of the nest (mandatory)
-        nest_y: float   The y coordinate of the nest (mandatory)
-        radius: Number (default: 100)  Distance from the nest in metres.
-                A drone inside the radius is considered a violation
+        service: DronesService  Object for getting information from the server
+        nest: Nest  The bidnest around which the No Fly Zone exists
+        
         persist_time: Integer (default: 600) Time in seconds after a detected
                 violation is disgarded, if drone has not been detected again
         """
         self.service = service
-        self.nest_x = nest_x
-        self.nest_y = nest_y
-        self.radius = radius * 1000  # Convert from metres to millimeters
+        self.nest = nest
         self.persist_time = persist_time
-
 
         self.drones = {}  # A ditionary of detected drones inside the radius
 
@@ -50,7 +43,7 @@ class Drones:
 
             drone_x = float(properties["positionX"])
             drone_y = float(properties["positionY"])
-            distance = self._too_close(drone_x, drone_y)
+            distance = self.nest.too_close(drone_x, drone_y)
 
             # The drone is already in the list of drones too close
             if serial_number in self.drones:
@@ -109,22 +102,3 @@ class Drones:
                            "email": pilot["email"],
                            "timestamp": drone["timestamp"]})
         return result
-
-    def _too_close(self, drone_x, drone_y):
-        """ Measures the distance of the drone from the nest
-        and returns the distance in metres
-
-        Arguments:
-        drone_x: Integer  The x coordinate of the drone position
-        drone_y: Integer  The y coordinate of the drone position
-
-        Returns:
-        Integer. Distance in metres to the nest if too close, otherwise None
-        """
-        distance = math.sqrt((drone_x - self.nest_x)**2 +
-                             (drone_y - self.nest_y)**2)
-
-        if distance < self.radius:
-            return distance
-
-        return None
