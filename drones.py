@@ -96,9 +96,16 @@ class Drones:
         
         for serial_number, drone in drones.items():
             pilot = self.service.get_pilot(serial_number)
-            result.append({"distance": drone["distance"],
-                           "firstName": pilot["firstName"],
-                           "lastName": pilot["lastName"],
-                           "email": pilot["email"],
-                           "timestamp": drone["timestamp"]})
+            if pilot:
+                result.append({"distance": drone["distance"],
+                               "firstName": pilot["firstName"],
+                               "lastName": pilot["lastName"],
+                               "email": pilot["email"],
+                               "timestamp": drone["timestamp"]})
+            else:
+                result.append({"distance": drone["distance"],
+                               "firstName": "[unknown]",
+                               "lastName": "[unknown]",
+                               "email": "[unknown]",
+                               "timestamp": drone["timestamp"]})
         return result

@@ -81,7 +81,6 @@ class DronesService:
             response = requests.get(url)
             result = json.loads(response.content)
         except requests.exceptions.RequestException:
-            # TODO: Handle HTTP error
             return None
         except json.JSONDecodeError:
             return None
