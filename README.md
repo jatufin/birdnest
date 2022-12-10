@@ -55,3 +55,10 @@ The front end of the application can be opened in your browser: [localhost:5000]
 Python variables containing configuration information can be found in the `config.py` file.
 
 No environmental variables are used.
+
+## Testing
+
+Unit tests can be found in the `tests` directory. They can be executed from the project root directory with following command:
+```
+$ python3 -m unittest
+```
