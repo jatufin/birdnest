@@ -111,7 +111,6 @@ class Drones:
         """
         root = self._request_xml(self.drones_url)
         drones = self._get_drones_from_xml(root)
-        print(f"DRONES: {drones}")
         
         for serial_number, properties in drones.items():
             timestamp = properties["timestamp"]
@@ -139,7 +138,6 @@ class Drones:
                 }
 
         self._remove_old_drones()
-        print("\nOFFENDING DRONES:\n", self.drones)
 
     def _remove_old_drones(self):
         """ Go through the drone list and remove ones, which have not been
