@@ -62,3 +62,6 @@ Unit tests can be found in the `tests` directory. They can be executed from the 
 ```
 $ python3 -m unittest
 ```
+## Future suggestions
+
+Store bird nests in a list inside the Drones object. This way multiple nests with different size No Fly Zones could be surveyed.
