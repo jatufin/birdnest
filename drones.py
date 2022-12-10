@@ -2,103 +2,37 @@ import math
 from datetime import datetime
 import copy
 
-import requests
-import xml.etree.ElementTree as ET
-import json
-
-
+       
 class Drones:
+    """ Main class to acquire information about drones in the vicinity
+    and list of drones with pilot information which have breached the
+    No Fly Zone
+    """
     def __init__(self,
-                 drones_url,
-                 pilots_url,
+                 service,
                  nest_x,
                  nest_y,
                  radius=100,
-                 persist_time=600,
-                 time_format="%Y-%m-%dT%H:%M:%S.%fZ"):
+                 persist_time=600):
         """
         Drone class constructor
 
         Arguments:
-        drones_url: String. The url for requesting drone XML (mandatory)
-        pilots_url: String. The url for requesting pilot XML (mandatory)
         nest_x: float   The x coordinate of the nest (mandatory)
         nest_y: float   The y coordinate of the nest (mandatory)
         radius: Number (default: 100)  Distance from the nest in metres.
                 A drone inside the radius is considered a violation
         persist_time: Integer (default: 600) Time in seconds after a detected
                 violation is disgarded, if drone has not been detected again
-        time_format: String  Time formatting used in the drone XML data
         """
-        self.drones_url = drones_url
-        self.pilots_url = pilots_url
+        self.service = service
         self.nest_x = nest_x
         self.nest_y = nest_y
         self.radius = radius * 1000  # Convert from metres to millimeters
         self.persist_time = persist_time
-        self.time_format = time_format
+
 
         self.drones = {}  # A ditionary of detected drones inside the radius
-
-    def _request_xml(self, url):
-        """ Fetch and parse XML data from a given url
-
-        Arguments:
-        url: String
-
-        Returns the XML root element
-        """
-        try:
-            response = requests.get(url)
-        except requests.exceptions.RequestException:
-            return None
-
-        try:
-            root = ET.fromstring(response.content)
-        except ET.ParseError:
-            return None
-
-        return root
-
-    def _request_json(self, url):
-        """ Fetch and parse JSON data from a given url
-
-        Arguments:
-        url: String
-
-        Returns Python dictionary
-        """
-        try:
-            response = requests.get(url)
-            result = json.loads(response.content)
-        except requests.exceptions.RequestException:
-            return None
-        except json.JSONDecodeError:
-            return None
-
-        return result
-
-    def _get_drones_from_xml(self, root):
-        """ Converts the XML data into a dictionary, where keys are drone serial
-        numbers and values dictionaries consisting drone data.
-
-        Arguments:
-        root: XML Element object
-
-        Returns a dictionary
-        """
-        result = {}
-        timestamp_string = root[1].attrib["snapshotTimestamp"]
-        timestamp = datetime.strptime(timestamp_string, self.time_format)
-
-        for child in root[1]:
-            drone = {"timestamp": timestamp}
-            for property in child:
-                drone[property.tag] = property.text
-            result[drone["serialNumber"]] = drone
-
-        return result
-
 
     def update_offending_drones(self):
         """ Request drone information from the server and go through the list
@@ -109,8 +43,7 @@ class Drones:
         - Go through self.drones dictionary and remove all drones which have
         timestamp older than self.persist_time
         """
-        root = self._request_xml(self.drones_url)
-        drones = self._get_drones_from_xml(root)
+        drones = self.service.get_drones()
         
         for serial_number, properties in drones.items():
             timestamp = properties["timestamp"]
@@ -165,31 +98,16 @@ class Drones:
         """
         result = []
         
-        # The dictionary can be updated during iteration, so a copy is used        
+        # The dictionary update can happen during iteration, so a copy is used        
         drones = copy.copy(self.drones)
         
         for serial_number, drone in drones.items():
-            pilot = self.get_pilot(serial_number)
+            pilot = self.service.get_pilot(serial_number)
             result.append({"distance": drone["distance"],
                            "firstName": pilot["firstName"],
                            "lastName": pilot["lastName"],
                            "email": pilot["email"],
                            "timestamp": drone["timestamp"]})
-        return result
-
-    def get_pilot(self, serial_number):
-        """ Get information of a pilot from the service
-
-        Arguments:
-        serial_number: String  The serial number of the pilot's drone
-
-        Returns:
-        A dictionary containing pilot information.
-        """
-        url = f"{self.pilots_url}{serial_number}"
-
-        result = self._request_json(url)
-
         return result
 
     def _too_close(self, drone_x, drone_y):
