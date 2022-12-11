@@ -35,20 +35,37 @@ $ git clone https://github.com/jatufin/birdnest
 Go to the project folder and build the Flask environment:
 ```
 $ python3 -m venv venv
-$ . venv/bin/activate
+$ source venv/bin/activate
+```
+
+You might need to install dependecies:
+```
 (venv) $ pip install Flask
 (venv) $ pip install wheel
 (venv) $ pip install Flask-APScheduler
 (venv) $ pip install requests
 ```
 
-Start the application:
-
+Start the application from within the active environment:
 ```
-$ flask run
+(venv) $ flask run
 ```
 
 The front end of the application can be opened in your browser: [localhost:5000](http://localhost:5000/)
+
+## Docker Deployment
+
+There is also a ready-to-build Docker configuration for easy deployment.
+
+The container can be build with command:
+```
+$ docker build . -t birdnest
+```
+
+And launched:
+```
+$ docker run birdnest
+```
 
 ## Configuration
 
