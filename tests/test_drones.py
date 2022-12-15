@@ -28,7 +28,7 @@ class TestDrones(unittest.TestCase):
             {"serialXXX": {"timestamp": 1,
                            "distance": 10000}}
         
-    def test_drone_can_be_created(self):
+    def test_drone_will_be_created_with_correct_state(self):
         self.assertEqual(self.drones.persist_time, 10)
 
     def test_update_offending_drones_calls_service(self):

@@ -24,7 +24,7 @@ The application doesn't use any persistent storage. All information is lost duri
 
 ## Downloading and starting
 
-You should have Python 3 already installed in your system. we assume Linux or similar operating system is in use.
+You should have Python 3 already installed in your system. I assume Linux or similar operating system is in use.
 
 Clone the project from GitHub:
 
@@ -81,4 +81,5 @@ $ python3 -m unittest
 ```
 ## Future suggestions
 
-Store bird nests in a list inside the Drones object. This way multiple nests with different size No Fly Zones could be surveyed.
+* Store bird nests in a list inside the Drones object. This way multiple nests with different size No Fly Zones could be surveyed.
+* Current tests are not comprehensive and should be expanded
