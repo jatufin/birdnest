@@ -53,7 +53,7 @@ Start the application from within the active environment:
 
 The front end of the application can be opened in your browser: [localhost:5000](http://localhost:5000/)
 
-## Docker Deployment
+## Docker deployment
 
 There is also a ready-to-build Docker configuration for easy deployment.
 
@@ -65,6 +65,18 @@ $ docker build . -t birdnest
 And launched:
 ```
 $ docker run birdnest
+```
+
+## `Fly.io` deployment
+
+There exists `fly.toml` configuration file in the project root. The application name should be modified to be unique:
+```
+app = "jatufin-birdnest"
+```
+
+If one jas installe `flyctl` and registered to the service, the application can be launched to `Fly.io` by following command:
+```
+flyctl launch
 ```
 
 ## Configuration
