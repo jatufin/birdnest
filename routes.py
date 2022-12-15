@@ -2,7 +2,7 @@ from app import app
 
 from flask import redirect, render_template
 
-from config import PAGE_REFRESH
+from config import PAGE_REFRESH, SHOW_ADDTIONAL_DATA
 
 @app.route("/")
 def main():
@@ -15,4 +15,5 @@ def index():
 
     return render_template("index.html",
                            pilots=pilots,
-                           page_refresh=PAGE_REFRESH)
+                           page_refresh=PAGE_REFRESH,
+                           show_additional_data=SHOW_ADDTIONAL_DATA)

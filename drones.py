@@ -101,6 +101,7 @@ class Drones:
                                "firstName": pilot["firstName"],
                                "lastName": pilot["lastName"],
                                "email": pilot["email"],
+                               "phoneNumber": pilot["phoneNumber"],                               
                                "timestamp": drone["timestamp"]})
             else:
                 result.append({"distance": drone["distance"],

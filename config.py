@@ -20,3 +20,6 @@ POLL_INTERVAL = 1
 PAGE_REFRESH = 5
 
 TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
+
+# Show additional information on the front end web page
+SHOW_ADDTIONAL_DATA = False

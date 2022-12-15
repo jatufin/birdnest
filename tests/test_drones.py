@@ -27,8 +27,8 @@ class TestDrones(unittest.TestCase):
         self.drones.drones = \
             {"serialXXX": {"timestamp": 1,
                            "distance": 10000}}
-        
-    def test_drone_will_be_created_with_correct_state(self):
+
+    def test_drone_is_created_with_correct_state(self):
         self.assertEqual(self.drones.persist_time, 10)
 
     def test_update_offending_drones_calls_service(self):
@@ -40,7 +40,6 @@ class TestDrones(unittest.TestCase):
         self.drones.get_offending_pilots()
 
         self.service.get_pilot.assert_called_once()
-
 
 
 if __name__ == "__main__":

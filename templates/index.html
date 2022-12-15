@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <HTML>
   <HEAD>
-    <title>Birdnest</title>
+    <title>Birdnest - Janne Tuukkanen</title>
     <meta http-equiv="refresh" content="{{ page_refresh }}">
   </HEAD>
   <BODY>
-    <h2>Birdnest</h2>
+    <h1>Birdnest</h1>
+    <h2>Applicant: Janne Tuukkanen</h2>
 
-    {% for pilot in pilots %}
-    {% set distance_in_metres = pilot.distance / 1000 %}
-    {{ distance_in_metres|round|int }} {{pilot.firstName}} {{pilot.lastName}} {{pilot.email}} TIMESTAMP: {{pilot.timestamp}}<br>
-    {% endfor %}
+    <table>
+      <tr>
+        <th>Distance</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Phone number</th>
+        {% if show_additional_data %}
+        <th>Timestamp</th>
+        {% endif %}
+      </tr>
+      {% for pilot in pilots %}
+      <tr>
+        {% set distance_in_metres = pilot.distance / 1000 %}
+        <td>{{ distance_in_metres|round|int }}</td>
+        <td>{{pilot.firstName}}</td>
+        <td>{{pilot.lastName}}</td>
+        <td>{{pilot.email}}</td>
+        <td>{{pilot.phoneNumber}}</td>
+        {% if show_additional_data %}        
+        <td>{{pilot.timestamp}}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+        
   </BODY>
   </HTML>
