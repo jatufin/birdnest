@@ -24,6 +24,8 @@ class DronesService:
         self.pilots_url = pilots_url
         self.time_format = time_format
 
+        self.pilots_cache = {}
+
     def get_drones(self):
         """ Get the list of drones from the server
 
@@ -43,9 +45,14 @@ class DronesService:
         Returns:
         A dictionary containing pilot information.
         """
+        if serial_number in self.pilots_cache:
+            return self.pilots_cache[serial_number]
+        
         url = f"{self.pilots_url}{serial_number}"
-
         result = self._request_json(url)
+
+        if result is not None:
+            self.pilots_cache[serial_number] = result
 
         return result
 
