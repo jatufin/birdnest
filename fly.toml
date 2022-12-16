@@ -1,4 +1,4 @@
-# fly.toml file generated for jatufin-birdnest on 2022-12-16T01:47:28+02:00
+# fly.toml file generated for jatufin-birdnest on 2022-12-16T03:28:40+02:00
 
 app = "jatufin-birdnest"
 kill_signal = "SIGINT"

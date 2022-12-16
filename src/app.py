@@ -1,12 +1,12 @@
 from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from drones import Drones
-from config import DRONES_URL, PILOTS_URL, NEST_X, NEST_Y, RADIUS, \
+from src.drones import Drones
+from src.config import DRONES_URL, PILOTS_URL, NEST_X, NEST_Y, RADIUS, \
     PERSIST_TIME, POLL_INTERVAL, TIME_FORMAT
 
-from drones_service import DronesService
-from nest import Nest
+from src.drones_service import DronesService
+from src.nest import Nest
 
 service = DronesService(DRONES_URL,
                         PILOTS_URL,
@@ -29,4 +29,4 @@ app = Flask(__name__)
 app.drones = drones
 
 
-import routes
+import src.routes

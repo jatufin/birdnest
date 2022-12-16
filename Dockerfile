@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 5000
 
 # Launch the app
-ENTRYPOINT python -m flask run --host 0.0.0.0
+ENTRYPOINT python -m flask --app src/app.py run --host 0.0.0.0

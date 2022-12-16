@@ -1,8 +1,9 @@
-from app import app
+from src.app import app
 
 from flask import redirect, render_template
 
-from config import PAGE_REFRESH, SHOW_ADDTIONAL_DATA
+from src.config import PAGE_REFRESH, SHOW_ADDTIONAL_DATA
+
 
 @app.route("/")
 def main():
