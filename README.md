@@ -95,3 +95,4 @@ $ python3 -m unittest
 
 * Store bird nests in a list inside the Drones object. This way multiple nests with different size No Fly Zones could be surveyed.
 * Current tests are not comprehensive and should be expanded
+* Source files should be structured in sub directories using Flask Blueprint
