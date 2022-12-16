@@ -1,6 +1,6 @@
 import unittest
 
-from nest import Nest
+from src.nest import Nest
 
 
 class TestNest(unittest.TestCase):

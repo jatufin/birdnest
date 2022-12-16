@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
-from drones import Drones
+from src.drones import Drones
 
 from datetime import datetime
 
@@ -16,7 +16,8 @@ class TestDrones(unittest.TestCase):
             {"distance": 10000,
              "firstName": "Jean",
              "lastName": "Doe",
-             "email": "e@mail"}
+             "email": "e@mail",
+             "phoneNumber": "+555-555 5555"}
         
         self.nest = MagicMock()
         self.nest.too_close.return_value = 50000

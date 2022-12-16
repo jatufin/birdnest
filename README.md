@@ -48,7 +48,7 @@ You might need to install dependecies:
 
 Start the application from within the active environment:
 ```
-(venv) $ flask run
+(venv) $ flask --app src/app.py run
 ```
 
 The front end of the application can be opened in your browser: [localhost:5000](http://localhost:5000/)
@@ -87,7 +87,7 @@ No environmental variables are used.
 
 ## Testing
 
-Unit tests can be found in the `tests` directory. They can be executed from the project root directory with following command:
+Unit tests can be found in the `src/tests` directory. They can be executed from the project root directory with following command:
 ```
 $ python3 -m unittest
 ```
@@ -95,4 +95,4 @@ $ python3 -m unittest
 
 * Store bird nests in a list inside the Drones object. This way multiple nests with different size No Fly Zones could be surveyed.
 * Current tests are not comprehensive and should be expanded
-* Source files should be structured in sub directories using Flask Blueprint
+* Use Flask Blueprint to better handle project file structure
