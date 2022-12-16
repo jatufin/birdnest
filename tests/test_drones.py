@@ -42,6 +42,18 @@ class TestDrones(unittest.TestCase):
 
         self.service.get_pilot.assert_called_once()
 
+    def test_get_offending_pilots_gets_pilot_data(self):
+        result = self.drones.get_offending_pilots()
+
+        self.assertEqual(result[0]["firstName"], "Jean")
+
+    def test_get_offending_pilots_handles_missing_data(self):
+        self.service.get_pilot.return_value = None
+
+        result = self.drones.get_offending_pilots()
+
+        self.assertEqual(result[0]["firstName"], "[unknown]")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -50,3 +50,16 @@ class TestDronesService(unittest.TestCase):
         result = self.drone_service.get_pilot("P-Ct_UPfW21o")
 
         self.assertEqual(result["firstName"], "Ludwig")
+
+    @patch("src.drones_service.requests")
+    def test_get_pilot_returns_none_when_error(self, mock_requests):
+        mock_response = MagicMock()
+        mock_response.status_code = 404
+        mock_response.content = "Not Found"
+
+        mock_requests.get.return_value = mock_response
+
+        result = self.drone_service.get_pilot("P-Ct_UPfW21o")
+
+        self.assertIsNone(result)
+

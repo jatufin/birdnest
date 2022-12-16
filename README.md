@@ -95,4 +95,5 @@ $ python3 -m unittest
 
 * Store bird nests in a list inside the Drones object. This way multiple nests with different size No Fly Zones could be surveyed.
 * Current tests are not comprehensive and should be expanded
-* Flask Blueprint should be used to better manage source tree
+* Flask Blueprint should be used to more elegantly manage source tree (avoid imports from `src` module)
+* Pilot cache should have Time To Live values. Now entries reside in the cache until shutdown.

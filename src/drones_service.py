@@ -86,10 +86,12 @@ class DronesService:
         """
         try:
             response = requests.get(url)
-            result = json.loads(response.content)
         except requests.exceptions.RequestException:
             return None
-        except json.JSONDecodeError:
+
+        try:
+            result = json.loads(response.content)
+        except ValueError:
             return None
 
         return result
